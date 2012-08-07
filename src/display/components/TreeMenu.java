@@ -40,6 +40,7 @@ import display.actions.ShowNodeBoundsAction;
 import display.actions.ShowNodeFieldAction;
 import display.listeners.AlgorithmListener;
 import display.listeners.GenerateButtonListener;
+import display.listeners.NavigationListener;
 import display.listeners.TreeBuilderListener;
 
 /*
@@ -51,7 +52,8 @@ public class TreeMenu extends JMenuBar {
 
 	private static TreeMenu instance;
 	
-	private JButton jbGenerate;
+	private JButton jbPrevious;
+	private JButton jbNext;
 	private JComboBox jcbAlgorithm;
 	private JComboBox jcbTree;
 	private LabeledTextField ltfNumNodes;
@@ -60,8 +62,8 @@ public class TreeMenu extends JMenuBar {
 	
 	private TreeMenu() {
 		initMenu();
-		initAlgorithmMenu();
-		initTreeBuilderMenu();
+//		initAlgorithmMenu();
+//		initTreeBuilderMenu();
 		initLTFs();
 		initGenerate();
 	}
@@ -156,11 +158,11 @@ public class TreeMenu extends JMenuBar {
 	 * Initializes displayed numNodes, arity, and minSeparation to default values.
 	 */
 	private void initLTFs() {
-		ltfNumNodes = new LabeledTextField(" Nodes: ", Start.DEFAULT_NUM_NODES, 3);
-		ltfArity = new LabeledTextField(" Arity: ", Start.DEFAULT_ARITY, 2);
+//		ltfNumNodes = new LabeledTextField(" Nodes: ", Start.DEFAULT_NUM_NODES, 3);
+//		ltfArity = new LabeledTextField(" Arity: ", Start.DEFAULT_ARITY, 2);
 		ltfMinSeparation = new LabeledTextField(" Spacing: ", Start.DEFAULT_MIN_X_SEPARAION, 2);
-		add(ltfNumNodes);
-		add(ltfArity);
+//		add(ltfNumNodes);
+//		add(ltfArity);
 		add(ltfMinSeparation);
 	}
 	
@@ -168,9 +170,14 @@ public class TreeMenu extends JMenuBar {
 	 * Initializes Generate button.
 	 */
 	public void initGenerate() {
-        jbGenerate = new JButton("Generate");
-        jbGenerate.addActionListener(new GenerateButtonListener());
-        add(jbGenerate);
+		jbPrevious = new JButton("<=");
+		jbPrevious.setActionCommand(NavigationListener.PREVIOUS);
+        jbPrevious.addActionListener(new NavigationListener());
+        jbNext = new JButton("=>");
+        jbNext.setActionCommand(NavigationListener.NEXT);
+        jbNext.addActionListener(new NavigationListener());
+        add(jbPrevious);
+        add(jbNext);
 	}
 	
 	/*
