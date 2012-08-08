@@ -26,16 +26,16 @@ import javax.swing.filechooser.FileFilter;
 public class PTBFileFilter extends FileFilter {
 	@Override
 	public boolean accept(File file) {
-//		if(file.getName().endsWith(".mrg")) {
-//			return true;
-//		}
-//		if (file.isDirectory()) {
-//			return true;
-//		}
-//		return false;
-		return true;
+		if(file.getName().endsWith(".trees") || file.getName().endsWith(".txt")) {
+			return true;
+		}
+		if (file.isDirectory()) {
+			return true;
+		}
+		return false;
+//		return true;
 	}
 	public String getDescription() {
-		return "PTB Format File (.mrg)";
+		return "Trees file (.trees or .txt)";
 	}
 }

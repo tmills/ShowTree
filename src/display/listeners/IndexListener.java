@@ -27,7 +27,7 @@ public class IndexListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
+		if(arg0.getKeyChar() == KeyEvent.VK_ENTER){
 			int indexVal = Integer.parseInt(ltfIndex.getText());
 			TreeMenu.drawTree(Start.getTreeNodes().get(indexVal));
 		}

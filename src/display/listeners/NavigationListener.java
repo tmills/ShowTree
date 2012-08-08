@@ -38,7 +38,7 @@ public class NavigationListener implements ActionListener, MouseListener {
 	private void redraw(int indexVal){
 		if(indexVal >= 0 && indexVal < Start.getTreeNodes().size()){
 			ltfIndex.setText(indexVal + "");
-			Start.setRoot(Start.getTreeNodes().get(indexVal));
+//			Start.setRoot(Start.getTreeNodes().get(indexVal));
 			TreeMenu.drawTree(Start.getTreeNodes().get(indexVal));
 		}else{
 			String errString = "Error! Index out of range!  I only have " + Start.getTreeNodes().size() + " trees.";

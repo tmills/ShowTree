@@ -16,6 +16,8 @@
 
 package display.components;
 
+import java.awt.event.KeyListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -66,5 +68,11 @@ public class LabeledTextField extends JPanel{
 	 */
 	public String getText() {
 		return jtf.getText();
+	}
+	
+	@Override
+	public synchronized void addKeyListener(KeyListener l) {
+		// pass this on to the text field only (
+		jtf.addKeyListener(l);
 	}
 }

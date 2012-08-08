@@ -188,10 +188,10 @@ public class TreeMenu extends JToolBar {
 	public void initGenerate() {
 		NavigationListener nav = new NavigationListener(ltfIndex);
 		Start.setNavigationListener(nav);
-		jbPrevious = new JButton("<=");
+		jbPrevious = new JButton("<= Prev ");
 		jbPrevious.setActionCommand(NavigationListener.PREVIOUS);
         jbPrevious.addActionListener(nav);
-        jbNext = new JButton("=>");
+        jbNext = new JButton(" Next =>");
         jbNext.setActionCommand(NavigationListener.NEXT);
         jbNext.addActionListener(nav);
         add(jbPrevious);

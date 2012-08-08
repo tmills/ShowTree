@@ -71,7 +71,7 @@ public class OpenTreeAction extends AbstractAction {
 		JFileChooser jfc = new JFileChooser(maybeLastPath);
 		jfc.setDialogTitle("Open PTB Format File");
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//		jfc.setFileFilter(new PTBFileFilter());
+		jfc.setFileFilter(new PTBFileFilter());
 
 
 		int result = jfc.showOpenDialog(TreeFrame.getInstance());
