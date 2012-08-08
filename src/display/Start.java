@@ -17,6 +17,7 @@
 package display;
 
 import java.awt.event.InputEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
@@ -24,6 +25,7 @@ import javax.swing.UIManager;
 
 import logic.Node;
 import display.components.TreeFrame;
+import display.listeners.NavigationListener;
 
 /*
  * This class contains the program's start point.
@@ -38,7 +40,7 @@ public class Start {
 		
 	public static final int DEFAULT_NUM_NODES = 20;
 	public static final int DEFAULT_ARITY = 3;
-	public static final int DEFAULT_MIN_X_SEPARAION = 50;
+	public static final int DEFAULT_MIN_X_SEPARAION = 20;
 	
 	//Command on Mac, control on other platforms
 	private static int commandKey;
@@ -65,6 +67,7 @@ public class Start {
 	public static final int HEIGHT = 760;
 	
 	public static int i = 1;
+	private static NavigationListener navListener;
 	
     private Start() {
     	if(System.getProperty("os.name").startsWith("Mac")) {
@@ -166,5 +169,13 @@ public class Start {
 
 	public static void setTreeNodes(ArrayList<Node> treeNodes) {
 		Start.treeNodes = treeNodes;
+	}
+
+	public static NavigationListener getNavigationListener() {
+		return navListener;
+	}
+
+	public static void setNavigationListener(NavigationListener nav) {
+		navListener = nav;
 	}
 }

@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JToolBar;
 
 import logic.Node;
 import logic.positioningAlgorithms.*;
@@ -48,12 +49,13 @@ import display.listeners.TreeBuilderListener;
 /*
  * The menu bar.
  */
-public class TreeMenu extends JMenuBar {
+public class TreeMenu extends JToolBar {
 
 	private static final long serialVersionUID = 1L;
 
 	private static TreeMenu instance;
 	
+	private JButton jbOpen;
 	private JButton jbPrevious;
 	private JButton jbNext;
 	private JComboBox jcbAlgorithm;
@@ -66,9 +68,10 @@ public class TreeMenu extends JMenuBar {
 	private TreeBuilder builder = new PTBTreeBuilder();
 	
 	private TreeMenu() {
-		initMenu();
+//		initMenu();
 //		initAlgorithmMenu();
 //		initTreeBuilderMenu();
+		initImportantButtons();
 		initLTFs();
 		initGenerate();
 	}
@@ -80,6 +83,11 @@ public class TreeMenu extends JMenuBar {
         return instance;
     }
 	
+    private void initImportantButtons(){
+    	jbOpen = new JButton(new OpenTreeAction("Open Tree", null, null));
+    	jbOpen.setText("Open");
+    	add(jbOpen);
+    }
     /*
      * Adds components to the TreeMenu.
      */
@@ -165,25 +173,27 @@ public class TreeMenu extends JMenuBar {
 	private void initLTFs() {
 //		ltfNumNodes = new LabeledTextField(" Nodes: ", Start.DEFAULT_NUM_NODES, 3);
 //		ltfArity = new LabeledTextField(" Arity: ", Start.DEFAULT_ARITY, 2);
-		ltfMinSeparation = new LabeledTextField(" Spacing: ", Start.DEFAULT_MIN_X_SEPARAION, 2);
+		ltfMinSeparation = new LabeledTextField(" Spacing: ", Start.DEFAULT_MIN_X_SEPARAION, 0);
 //		add(ltfNumNodes);
 //		add(ltfArity);
 		add(ltfMinSeparation);
+		ltfIndex = new LabeledTextField("Tree Index", 0, 2);
+		ltfIndex.addKeyListener(new IndexListener(ltfIndex));
+		add(ltfIndex);
 	}
 	
 	/*
 	 * Initializes Generate button.
 	 */
 	public void initGenerate() {
-		ltfIndex = new LabeledTextField("Tree Index", 0, 2);
-		ltfIndex.addKeyListener(new IndexListener(ltfIndex));
-		add(ltfIndex);
+		NavigationListener nav = new NavigationListener(ltfIndex);
+		Start.setNavigationListener(nav);
 		jbPrevious = new JButton("<=");
 		jbPrevious.setActionCommand(NavigationListener.PREVIOUS);
-        jbPrevious.addActionListener(new NavigationListener(ltfIndex));
+        jbPrevious.addActionListener(nav);
         jbNext = new JButton("=>");
         jbNext.setActionCommand(NavigationListener.NEXT);
-        jbNext.addActionListener(new NavigationListener(ltfIndex));
+        jbNext.addActionListener(nav);
         add(jbPrevious);
         add(jbNext);
 	}

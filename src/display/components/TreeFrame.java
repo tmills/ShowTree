@@ -16,10 +16,12 @@
 
 package display.components;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import display.Start;
 
@@ -36,10 +38,14 @@ public class TreeFrame extends JFrame{
 	private TreeFrame() {
         setSize(new Dimension(Start.WIDTH, Start.HEIGHT));
         setTitle("ShowTree");
-        setJMenuBar(TreeMenu.getInstance());
+//        setJMenuBar(TreeMenu.getInstance());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(getExtendedState());
-        setContentPane(TreeScrollPane.getInstance());
+        JPanel mainContentPane = new JPanel(new BorderLayout());
+        mainContentPane.add(TreeMenu.getInstance(), BorderLayout.NORTH);
+        mainContentPane.add(TreeScrollPane.getInstance(), BorderLayout.CENTER);
+        TreeScrollPane.getInstance().addMouseListener(Start.getNavigationListener());
+        setContentPane(mainContentPane);
         lockSize();
         TreeMenu.getInstance().correctOptions();
 	}
