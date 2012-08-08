@@ -59,6 +59,8 @@ public class TreeMenu extends JMenuBar {
 	private LabeledTextField ltfNumNodes;
 	private LabeledTextField ltfArity;
 	private LabeledTextField ltfMinSeparation;
+	private PositioningAlgorithm algo = new W_BJL06();
+	private TreeBuilder builder = new PTBTreeBuilder();
 	
 	private TreeMenu() {
 		initMenu();
@@ -87,8 +89,8 @@ public class TreeMenu extends JMenuBar {
                 new AboutAction("About", null, null));
         JMenuItem jmiOpenTree = new JMenuItem(
                 new OpenTreeAction("Open Tree", null, null));
-        JMenuItem jmiSaveTree = new JMenuItem(
-                new SaveTreeAction("Save Tree", null, null));
+//        JMenuItem jmiSaveTree = new JMenuItem(
+//                new SaveTreeAction("Save Tree", null, null));
         JMenuItem jmiSaveImage = new JMenuItem(
                 new SaveImageAction("Save Image", null, null));
         JMenuItem jmiScreenshot = new JMenuItem(
@@ -99,7 +101,7 @@ public class TreeMenu extends JMenuBar {
         jmMenu.add(jmiAbout);
         jmMenu.addSeparator();
         jmMenu.add(jmiOpenTree);
-        jmMenu.add(jmiSaveTree);
+//        jmMenu.add(jmiSaveTree);
         jmMenu.add(jmiSaveImage);
         jmMenu.add(jmiScreenshot);
         jmMenu.addSeparator();
@@ -259,10 +261,10 @@ public class TreeMenu extends JMenuBar {
 	 * those fields.
 	 */
 	private void setDeadOptions() {
-		ltfArity.setAllEnabled(false);
-		ltfArity.setText("");
-		ltfNumNodes.setAllEnabled(false);
-		ltfNumNodes.setText("");
+//		ltfArity.setAllEnabled(false);
+//		ltfArity.setText("");
+//		ltfNumNodes.setAllEnabled(false);
+//		ltfNumNodes.setText("");
 		ensureXSeparationIsInt();
 	}
 	
@@ -285,14 +287,19 @@ public class TreeMenu extends JMenuBar {
 	 * @returns the currently displayed Display Algorithm
 	 */
 	public PositioningAlgorithm getPositioningAlgorithm() {
-		return (PositioningAlgorithm)jcbAlgorithm.getSelectedItem();
+		// TODO make this a menu option or something less prominent than the
+		// dropdown (or get rid of it)
+		return algo;
+//		return (PositioningAlgorithm)jcbAlgorithm.getSelectedItem();
 	}
 	
 	/*
 	 * @returns the currently displayed TreeBuilder
 	 */
 	public TreeBuilder getTreeBuilder() {
-		return (TreeBuilder)jcbTree.getSelectedItem();
+		// TODO - decide - necessary to have more than one kind?
+//		return (TreeBuilder)jcbTree.getSelectedItem();
+		return builder;
 	}
 	
 	/*
