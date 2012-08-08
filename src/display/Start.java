@@ -17,6 +17,7 @@
 package display;
 
 import java.awt.event.InputEvent;
+import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -48,6 +49,8 @@ public class Start {
 	private static int arity;
 	//Saved minSeparation value, not necessarily the one currently being displayed
 	private static int minSeparation = DEFAULT_MIN_X_SEPARAION;
+	// set of trees read in
+	private static ArrayList<Node> treeNodes = null;
 	
 	private static boolean showGrid;
 	private static boolean showShiftSums;
@@ -155,5 +158,13 @@ public class Start {
 
 	public static int getCommandKey() {
 		return commandKey;
+	}
+
+	public static ArrayList<Node> getTreeNodes() {
+		return treeNodes;
+	}
+
+	public static void setTreeNodes(ArrayList<Node> treeNodes) {
+		Start.treeNodes = treeNodes;
 	}
 }

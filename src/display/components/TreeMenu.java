@@ -23,6 +23,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import logic.Node;
 import logic.positioningAlgorithms.*;
 import logic.treeBuilders.CompleteTreeBuilder;
 import logic.treeBuilders.OrganicTreeBuilder;
@@ -40,6 +41,7 @@ import display.actions.ShowNodeBoundsAction;
 import display.actions.ShowNodeFieldAction;
 import display.listeners.AlgorithmListener;
 import display.listeners.GenerateButtonListener;
+import display.listeners.IndexListener;
 import display.listeners.NavigationListener;
 import display.listeners.TreeBuilderListener;
 
@@ -59,6 +61,7 @@ public class TreeMenu extends JMenuBar {
 	private LabeledTextField ltfNumNodes;
 	private LabeledTextField ltfArity;
 	private LabeledTextField ltfMinSeparation;
+	private LabeledTextField ltfIndex;
 	private PositioningAlgorithm algo = new W_BJL06();
 	private TreeBuilder builder = new PTBTreeBuilder();
 	
@@ -172,12 +175,15 @@ public class TreeMenu extends JMenuBar {
 	 * Initializes Generate button.
 	 */
 	public void initGenerate() {
+		ltfIndex = new LabeledTextField("Tree Index", 0, 2);
+		ltfIndex.addKeyListener(new IndexListener(ltfIndex));
+		add(ltfIndex);
 		jbPrevious = new JButton("<=");
 		jbPrevious.setActionCommand(NavigationListener.PREVIOUS);
-        jbPrevious.addActionListener(new NavigationListener());
+        jbPrevious.addActionListener(new NavigationListener(ltfIndex));
         jbNext = new JButton("=>");
         jbNext.setActionCommand(NavigationListener.NEXT);
-        jbNext.addActionListener(new NavigationListener());
+        jbNext.addActionListener(new NavigationListener(ltfIndex));
         add(jbPrevious);
         add(jbNext);
 	}
@@ -321,5 +327,11 @@ public class TreeMenu extends JMenuBar {
 	 */
 	public int getSelectedArity() {
 		return Integer.parseInt(ltfArity.getText().trim());
+	}
+	
+	public static void drawTree(Node node){
+		Start.setRoot(node);
+		instance.getPositioningAlgorithm().embed(node, Start.getMinXSeparation());
+		TreePane.getInstance().displayTree(TreeMenu.getInstance().getPositioningAlgorithm().handlesNodeWidths());
 	}
 }

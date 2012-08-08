@@ -82,15 +82,17 @@ public class OpenTreeAction extends AbstractAction {
 				ArrayList<Node> docNodes = Load.loadPTBTrees(new FileReader(new File(path)));
 				if(docNodes.size() > 0) {
 					Node firstTree = docNodes.get(0);
-					Start.setRoot(firstTree);
-					if(firstTree.isBinary() || TreeMenu.getInstance().getPositioningAlgorithm().isBinary() == false) {
-						TreeMenu.getInstance().getPositioningAlgorithm().embed(Start.getRoot(), Start.getMinXSeparation());
-					}
-					else {
-						TreeMenu.getInstance().restoreFirstAlgorithm();
-						TreeMenu.getInstance().getFirstAlgorithm().embed(Start.getRoot(), Start.getMinXSeparation());
-					}
-					TreePane.getInstance().displayTree(TreeMenu.getInstance().getPositioningAlgorithm().handlesNodeWidths());
+//					Start.setRoot(firstTree);
+					Start.setTreeNodes(docNodes);
+//					if(firstTree.isBinary() || TreeMenu.getInstance().getPositioningAlgorithm().isBinary() == false) {
+//						TreeMenu.getInstance().getPositioningAlgorithm().embed(Start.getRoot(), Start.getMinXSeparation());
+						TreeMenu.drawTree(firstTree);
+//					}
+//					else {
+//						TreeMenu.getInstance().restoreFirstAlgorithm();
+//						TreeMenu.getInstance().getFirstAlgorithm().embed(Start.getRoot(), Start.getMinXSeparation());
+//					}
+//					TreePane.getInstance().displayTree(TreeMenu.getInstance().getPositioningAlgorithm().handlesNodeWidths());
 				}
 				else {
 					TreePane.getInstance().unDisplayTree();
