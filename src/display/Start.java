@@ -18,14 +18,21 @@ package display;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import util.Load;
+
 import logic.Node;
 import display.components.TreeFrame;
 import display.listeners.NavigationListener;
+import display.components.TreeMenu;
 
 /*
  * This class contains the program's start point.
@@ -69,7 +76,7 @@ public class Start {
 	public static int i = 1;
 	private static NavigationListener navListener;
 	
-    private Start() {
+    private Start(String[] args) throws IOException {
     	if(System.getProperty("os.name").startsWith("Mac")) {
     		commandKey = InputEvent.META_MASK;
     	}
@@ -84,6 +91,16 @@ public class Start {
         }
         TreeFrame frame = TreeFrame.getInstance();
         frame.setVisible(true);
+        
+        if(args.length > 0){
+        	treeNodes = Load.loadPTBTrees(new FileReader(new File(args[0])));
+        }else{
+        	// read in from standard input...
+        	treeNodes = Load.loadPTBTrees(new InputStreamReader(System.in));
+        }
+        
+        Start.setRoot(treeNodes.get(0));
+        TreeMenu.drawTree(treeNodes.get(0));
     }
     
     /*
@@ -108,10 +125,15 @@ public class Start {
     	arity = ar;
     } 
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Start();
+                try {
+					new Start(args);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }
